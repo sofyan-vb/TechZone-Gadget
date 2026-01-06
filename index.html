@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechZone - Upgrade Gaya, Tanpa Kuras Dana</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/products.css">
+</head>
+<body>
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <nav class="navbar">
+        <a href="#" class="navbar-logo">Tech<span>Zone</span></a>
+        <div class="navbar-nav">
+            <a href="#home">Home</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#products">Produk Unggulan</a>
+            <a href="#contact">Kontak Kami</a>
+        </div>
+        <div class="navbar-extra">
+            <a href="#" id="search"><i data-feather="search"></i></a>
+            <a href="#" id="shopping-cart">
+                <i data-feather="shopping-cart"></i>
+                <span id="cart-badge" class="cart-badge">0</span>
+        </a>
+            <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <main class="content">
+            <h1>Masa Depan <span>Teknologi</span> Ada di Sini</h1>
+            <p>Dapatkan gadget inovatif dengan garansi resmi dan layanan purna jual terbaik.</p>
+            
+            <a href="javascript:void(0)" onclick="transitionTo('products.html', 2000)" class="cta">Beli Sekarang</a>
+        </main>
+    </section>
+
+    <section class="features">
+        <div class="row">
+            <div class="feature-card">
+                <i data-feather="shield"></i>
+                <h3>Garansi Resmi</h3>
+                <p>Jaminan produk 100% original & bergaransi.</p>
+            </div>
+            <div class="feature-card">
+                <i data-feather="truck"></i>
+                <h3>Pengiriman Cepat</h3>
+                <p>Barang dikirim hari yang sama, aman sampai tujuan.</p>
+            </div>
+            <div class="feature-card">
+                <i data-feather="headphones"></i>
+                <h3>24/7 Support</h3>
+                <p>Siap membantu kendala teknis Anda kapan saja.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2><span>Tentang</span> Kami</h2>
+        <div class="row">
+            <div class="about-img">
+                <img src="img/tentang.jpg" alt="Tentang TechZone"> 
+            </div>
+            <div class="content">
+                <h3>Kenapa TechZone menjadi pilihan utama Anda?</h3>
+                <p>
+                    Di era digital yang serba cepat, kepercayaan adalah segalanya. TechZone hadir sebagai destinasi gadget terpadu yang menjamin 100% keaslian produk dengan garansi resmi nasional.
+        </p>
+                <p>
+                    Kami menyeleksi perangkat terbaik dari brand global untuk memastikan Anda mendapatkan kualitas premium tanpa kompromi. Belanja aman, nyaman, dan bebas khawatir adalah prioritas kami.
+        </p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="products" class="products">
+        <h2><span>Produk</span> Unggulan</h2>
+        <p>Lihat pilihan gadget terbaik yang paling diminati bulan ini.</p>
+
+        <div class="row">
+            <div class="product-card">
+                <div class="product-badge"><i data-feather="star"></i> Best Seller</div>
+                
+                <div class="product-img-container">
+                    <img src="img/Smartphone 5G Terbaru.jpg" alt="Smartphone" class="product-card-image">
+                    
+                    <a class="item-detail-btn" onclick="openDetail(this)"
+                       data-title="Polytron Prime 7 Pro"
+                       data-price="8.999.000"
+                       data-desc="Smartphone flagship kebanggaan Indonesia dengan desain premium, layar lengkung, dan performa gaming tinggi."
+                       data-specs="Layar AMOLED 6.7 Inch 120Hz, RAM 12GB + 256GB, Kamera Utama 108MP OIS, Chipset Snapdragon 870 5G, Baterai 5000mAh + 67W Fast Charging"
+                       data-img="img/Smartphone 5G Terbaru.jpg">
+                        <i data-feather="eye"></i>
+                    </a>
+                    <span class="zoom-text">Lihat Detail</span>
+                </div>
+
+                <h3 class="product-card-title">Polytron Prime 7 Pro</h3>
+                <p class="product-card-price">IDR 8.999.000</p>
+                <div class="product-sold"><i data-feather="users"></i> 1.2rb Terjual</div>
+                <div class="product-icons">
+                    <a href="javascript:void(0)" class="add-to-cart-btn" data-name="Polytron Prime 7 Pro" data-price="8999000"><i data-feather="shopping-cart"></i> + Keranjang</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge gold"><i data-feather="zap"></i> Hot Item</div>
+                
+                <div class="product-img-container">
+                    <img src="img/TWS Noise Cancelling.jpg" alt="TWS" class="product-card-image">
+                    
+                    <a class="item-detail-btn" onclick="openDetail(this)"
+                       data-title="TWS Noise Cancelling"
+                       data-price="999.000"
+                       data-desc="Rasakan kebebasan audio dengan Active Noise Cancelling dan bass yang mendalam."
+                       data-specs="Active Noise Cancelling (ANC), Bluetooth 5.3, Baterai hingga 30 Jam, Tahan Air IPX4, Touch Control"
+                       data-img="img/TWS Noise Cancelling.jpg">
+                        <i data-feather="eye"></i>
+                    </a>
+                    <span class="zoom-text">Lihat Detail</span>
+                </div>
+
+                <h3 class="product-card-title">TWS Noise Cancelling</h3>
+                <p class="product-card-price">IDR 999.000</p>
+                <div class="product-sold"><i data-feather="users"></i> 5rb+ Terjual</div>
+                <div class="product-icons">
+                    <a href="javascript:void(0)" class="add-to-cart-btn" data-name="TWS Noise Cancelling" data-price="999000"><i data-feather="shopping-cart"></i> + Keranjang</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge green"><i data-feather="clock"></i> New Arrival</div>
+                
+                <div class="product-img-container">
+                    <img src="img/Smartwatch X1 Pro.jpg" alt="Watch" class="product-card-image">
+                    
+                    <a class="item-detail-btn" onclick="openDetail(this)"
+                       data-title="Smartwatch X1 Pro"
+                       data-price="2.500.000"
+                       data-desc="Pantau kesehatan dan notifikasi Anda dengan gaya. Layar jernih dan fitur olahraga lengkap."
+                       data-specs="Layar AMOLED 1.43 Inch, Monitor Detak Jantung & SpO2, GPS Built-in, 100+ Mode Olahraga, Baterai 14 Hari"
+                       data-img="img/Smartwatch X1 Pro.jpg">
+                        <i data-feather="eye"></i>
+                    </a>
+                    <span class="zoom-text">Lihat Detail</span>
+                </div>
+
+                <h3 class="product-card-title">Smartwatch X1 Pro</h3>
+                <p class="product-card-price">IDR 2.500.000</p>
+                <div class="product-sold"><i data-feather="users"></i> 850 Terjual</div>
+                <div class="product-icons">
+                    <a href="javascript:void(0)" class="add-to-cart-btn" data-name="Smartwatch X1 Pro" data-price="2500000"><i data-feather="shopping-cart"></i> + Keranjang</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge"><i data-feather="thumbs-up"></i> Rekomendasi</div>
+                
+                <div class="product-img-container">
+                    <img src="img/Powerbank 20000mAh.jpg" alt="Powerbank" class="product-card-image">
+                    
+                    <a class="item-detail-btn" onclick="openDetail(this)"
+                       data-title="Powerbank 20000mAh"
+                       data-price="450.000"
+                       data-desc="Jangan biarkan gadget Anda mati. Kapasitas besar dengan pengisian cepat aman dibawa ke pesawat."
+                       data-specs="Kapasitas 20000mAh, 22.5W Fast Charging, 3 Output (USB-A & USB-C), Digital Display, Flight Safe"
+                       data-img="img/Powerbank 20000mAh.jpg">
+                        <i data-feather="eye"></i>
+                    </a>
+                    <span class="zoom-text">Lihat Detail</span>
+                </div>
+
+                <h3 class="product-card-title">Powerbank 20000mAh</h3>
+                <p class="product-card-price">IDR 450.000</p>
+                <div class="product-sold"><i data-feather="users"></i> 2.1rb Terjual</div>
+                <div class="product-icons">
+                    <a href="javascript:void(0)" class="add-to-cart-btn" data-name="Powerbank 20000mAh" data-price="450000"><i data-feather="shopping-cart"></i> + Keranjang</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2>Apa Kata <span>Mereka?</span></h2>
+        
+        <div class="row">
+            <div class="testi-card">
+                <div class="quote-icon">
+                    <i data-feather="message-circle"></i>
+                </div>
+                <p>"Pelayanan sangat memuaskan, barang sampai dengan aman dan sesuai deskripsi. Recommended seller!"</p>
+                <h4>Budi Santoso</h4>
+                <div class="stars">
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                </div>
+            </div>
+
+            <div class="testi-card">
+                <div class="quote-icon">
+                    <i data-feather="message-circle"></i>
+                </div>
+                <p>"Harga termurah dibanding toko sebelah, tapi kualitas tetap juara. Smartwatch X1-nya keren banget."</p>
+                <h4>Siti Aminah</h4>
+                <div class="stars">
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                </div>
+            </div>
+
+            <div class="testi-card">
+                <div class="quote-icon">
+                    <i data-feather="message-circle"></i>
+                </div>
+                <p>"Pengiriman super cepat, pesan pagi sore sudah sampai. Packing kayu sangat aman."</p>
+                <h4>Dimas Anggara</h4>
+                <div class="stars">
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2><span>Kontak</span> Kami</h2>
+        <p>Hubungi kami untuk informasi lebih lanjut atau kunjungi toko kami secara langsung.</p>
+        <div class="row">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.28317772658!2d106.75620165727184!3d-6.229569450324203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1675317726054!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
+            <form action="">
+                <div class="input-group"><i data-feather="user"></i><input type="text" placeholder="Nama Lengkap"></div>
+                <div class="input-group"><i data-feather="mail"></i><input type="email" placeholder="Email"></div>
+                <div class="input-group"><i data-feather="phone"></i><input type="text" placeholder="Nomor Telepon"></div>
+                <button type="submit" class="btn">Kirim Pesan</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="socials">
+            <a href="#"><i data-feather="instagram"></i></a>
+            <a href="#"><i data-feather="twitter"></i></a>
+            <a href="#"><i data-feather="youtube"></i></a>
+        </div>
+        <div class="links">
+            <a href="#home">Home</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#products">Produk Unggulan</a>
+            <a href="#contact">Kontak</a>
+        </div>
+        <div class="credit">
+            <p>Created by <a href="">TechZone</a>. | © 2025.</p>
+        </div>
+    </footer>
+
+    <div class="shopping-cart-modal" id="shopping-cart-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background-color: #fff; padding: 2rem; border-radius: 10px; width: 90%; max-width: 500px; color: #000; position: relative;">
+            <a href="#" id="close-cart" style="position: absolute; top: 10px; right: 10px; color: #000;"><i data-feather="x"></i></a>
+            <h3 style="margin-bottom: 1rem;">Keranjang Belanja</h3>
+            <div id="cart-items-content"></div>
+            <div style="margin-top: 1rem; border-top: 1px solid #ccc; padding-top: 10px; display: flex; justify-content: space-between;">
+                <strong>Total:</strong>
+                <span id="cart-total-price">IDR 0</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="checkout-modal" class="modal" style="display:none;">
+        <div class="modal-container">
+            <a href="#" class="close-icon" id="close-checkout"><i data-feather="x"></i></a>
+            <div id="payment-section">
+                <h3>Pilih Metode Pembayaran</h3>
+             <div class="payment-options">
+                    <button class="pay-btn" onclick="processPayment('Transfer Bank - BCA')">
+                        <i data-feather="credit-card"></i> Transfer BCA
+                    </button>
+                    <button class="pay-btn" onclick="processPayment('E-Wallet - GoPay')">
+                        <i data-feather="smartphone"></i> GoPay
+                    </button>
+                    <button class="pay-btn" onclick="processPayment('E-Wallet - DANA')">
+                        <i data-feather="pocket"></i> DANA
+                    </button>
+                    <button class="pay-btn" onclick="processPayment('QRIS Scan')">
+                        <i data-feather="grid"></i> QRIS
+                    </button>
+                    <button class="pay-btn" onclick="processPayment('Cash on Delivery (COD)')">
+                        <i data-feather="truck"></i> COD (Bayar di Tempat)
+                    </button>
+                </div>
+            </div>
+            
+            <div id="bill-section" style="display:none;">
+                <div class="nota-box">
+                    <h2>TECHZONE OFFICIAL</h2>
+                    <p>Jl. Teknologi No. 1, Jakarta</p>
+                    <p>--------------------------------</p>
+                    <p id="nota-date"></p>
+                    <p id="nota-id"></p>
+                    <p>--------------------------------</p>
+                    <div id="nota-items"></div>
+                    <p>--------------------------------</p>
+                    <div class="nota-total">
+                        <span>TOTAL:</span>
+                        <span id="nota-total-price"></span>
+                    </div>
+                    <p>Metode: <span id="nota-method"></span></p>
+                    <p style="margin-top: 1rem; text-align: center;">*** TERIMA KASIH ***</p>
+                </div>
+                <button class="btn-download" onclick="downloadReceipt()">
+                    <i data-feather="download-cloud"></i> 
+                         <span>Simpan Struk & Selesai</span>
+        </button>
+        </div>
+        </div>
+    </div>
+
+    <div id="toast-box"></div>
+    
+    <div id="product-detail-modal" class="lightbox">
+        <div class="lightbox-content-wrapper">
+            <span class="close-lightbox" onclick="closeDetailModal()">&times;</span>
+            
+            <div class="detail-flex">
+                <div class="detail-img-col">
+                    <img id="detail-img" src="" alt="Detail Produk">
+                </div>
+                
+                <div class="detail-info-col">
+                    <h3 id="detail-title">Nama Produk</h3>
+                    <p id="detail-price">IDR 0</p>
+                    <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
+                    
+                    <p id="detail-desc" class="desc-text">Deskripsi produk...</p>
+                    
+                    <h4 style="margin-top:1rem; font-size: 1rem;">Spesifikasi Utama:</h4>
+                    <ul id="detail-specs" class="specs-list">
+                        </ul>
+
+                    <div class="detail-action">
+                        <a href="javascript:void(0)" id="detail-cart-btn" class="add-to-cart-btn" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                             <i data-feather="shopping-cart"></i> + Masukkan Keranjang
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        feather.replace();
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>
