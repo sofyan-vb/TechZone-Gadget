@@ -149,6 +149,28 @@ document.addEventListener('click', function(e) {
 });
 
 // =======================================================
+//           LOGIKA DROPDOWN PROFIL USER
+// =======================================================
+
+const userBtn = document.getElementById('user-btn');
+const userDropdown = document.getElementById('user-dropdown');
+
+if (userBtn && userDropdown) {
+    // 1. Saat tombol avatar diklik, toggle class 'active'
+    userBtn.addEventListener('click', function(e) {
+        e.preventDefault(); // Mencegah scroll ke atas
+        userDropdown.classList.toggle('active');
+    });
+
+    // 2. Tutup dropdown jika klik di luar area menu
+    document.addEventListener('click', function(e) {
+        if (!userBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+            userDropdown.classList.remove('active');
+        }
+    });
+}
+
+// =======================================================
 //           LOGIKA KERANJANG (CART SYSTEM)
 // =======================================================
 
