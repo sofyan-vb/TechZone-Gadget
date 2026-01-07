@@ -14,6 +14,39 @@
     <link rel="stylesheet" href="css/products.css">
 </head>
 <body>
+
+<div id="login-overlay" class="login-overlay">
+    <div class="login-box">
+        <div class="login-logo">Tech<span>Zone</span></div>
+        <h2>Selamat Datang</h2>
+        <p>Silakan lengkapi data untuk masuk.</p>
+        
+        <form id="login-form">
+            <div class="input-group-login">
+                <i data-feather="user"></i>
+                <input type="text" id="username-input" placeholder="Masukkan Nama Anda" required autocomplete="off">
+            </div>
+
+            <div class="input-group-login">
+                <i data-feather="users"></i>
+                <select id="gender-input" required>
+                    <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                    <option value="male"> Laki-laki </option>
+                    <option value="female"> Perempuan </option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-login">MASUK SEKARANG</button>
+
+            <div style="text-align: center; margin: 15px 0; color: #aaa; font-size: 0.9rem;">ATAU</div>
+                <button type="button" class="btn-google" onclick="loginWithGoogle()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="G">
+                    Masuk dengan Google
+        </button>
+        </form>
+    </div>
+</div>
+
     <div class="loader-wrapper">
         <div class="loader"></div>
     </div>
@@ -26,12 +59,35 @@
             <a href="#products">Produk Unggulan</a>
             <a href="#contact">Kontak Kami</a>
         </div>
+
         <div class="navbar-extra">
             <a href="#" id="search"><i data-feather="search"></i></a>
             <a href="#" id="shopping-cart">
                 <i data-feather="shopping-cart"></i>
                 <span id="cart-badge" class="cart-badge">0</span>
         </a>
+
+        <div class="user-menu-container">
+            <a href="javascript:void(0)" id="user-btn">
+                <div class="user-avatar" id="nav-avatar">?</div>
+            </a>
+            
+            <div class="user-dropdown" id="user-dropdown">
+                <div class="user-dropdown-header">
+                    <div class="user-avatar large" id="dropdown-avatar">?</div>
+                    <div class="user-info">
+                        <h4 id="user-name-display">Guest</h4>
+                        <span id="user-role-display">Member TechZone</span>
+                    </div>
+                </div>
+                <hr>
+                <a href="#" class="dropdown-item"><i data-feather="user"></i> Profil Saya</a>
+                <a href="#" class="dropdown-item"><i data-feather="package"></i> Pesanan Saya</a>
+                <hr>
+                <a href="javascript:void(0)" onclick="logoutUser()" class="dropdown-item logout"><i data-feather="log-out"></i> Keluar</a>
+            </div>
+        </div>
+
             <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
         </div>
     </nav>

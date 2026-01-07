@@ -1,24 +1,133 @@
-let sections = document.querySelectorAll('section');
-let navLinks = document.querySelectorAll('.navbar-nav a');
+// =========================================
+//        SISTEM LOGIN & PROFIL OTOMATIS
+// =========================================
 
-window.onscroll = () => {
-    sections.forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 150;
-        let height = sec.offsetHeight;
-        let id = sec.getAttribute('id');
+const loginOverlay = document.getElementById('login-overlay');
+const loginForm = document.getElementById('login-form');
+const usernameInput = document.getElementById('username-input');
+const genderInput = document.getElementById('gender-input');
 
-        if(top >= offset && top < offset + height) {
-            navLinks.forEach(links => {
-                links.classList.remove('active');
-                let activeLink = document.querySelector('.navbar-nav a[href*=' + id + ']');
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
-            });
+const navAvatar = document.getElementById('nav-avatar');
+const dropdownAvatar = document.getElementById('dropdown-avatar');
+const userNameDisplay = document.getElementById('user-name-display');
+const userEmailDisplay = document.getElementById('user-email-display');
+
+function checkLoginStatus() {
+    const user = localStorage.getItem('techzone_user');
+    const gender = localStorage.getItem('techzone_gender');
+    const email = localStorage.getItem('techzone_email'); // Ambil Email
+
+    if (user && gender) {
+        // Jika data ada, update UI
+        updateProfileUI(user, gender, email);
+        hideLoginOverlay();
+    } else {
+        showLoginOverlay();
+    }
+}
+
+// 2. Fungsi Update UI Profil
+function updateProfileUI(name, gender, email) {
+    let avatarUrl = '';
+    
+    // Logika Avatar: Jika Gender 'google', pakai foto profil ala Google
+    if (gender === 'google') {
+        // Foto Placeholder Wanita/Pria random untuk simulasi Google
+        avatarUrl = `https://avatar.iran.liara.run/public?username=${name}`; 
+    } else if (gender === 'male') {
+        avatarUrl = `https://avatar.iran.liara.run/public/boy?username=${name}`;
+    } else {
+        avatarUrl = `https://avatar.iran.liara.run/public/girl?username=${name}`;
+    }
+
+    // Update Gambar Avatar
+    const imgTag = `<img src="${avatarUrl}" alt="User Avatar">`;
+    if(navAvatar) navAvatar.innerHTML = imgTag;
+    if(dropdownAvatar) dropdownAvatar.innerHTML = imgTag;
+
+    // Update Nama & Email
+    if(userNameDisplay) userNameDisplay.innerText = name;
+    if(userEmailDisplay) userEmailDisplay.innerText = email ? email : "member@techzone.id";
+}
+
+// 3. Tampilkan/Sembunyikan Overlay
+function showLoginOverlay() {
+    loginOverlay.classList.add('active');
+    document.body.classList.add('no-scroll');
+}
+function hideLoginOverlay() {
+    loginOverlay.classList.remove('active');
+    document.body.classList.remove('no-scroll');
+}
+
+// 4. LOGIN MANUAL (Form Biasa)
+if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = usernameInput.value.trim();
+        const gender = genderInput.value;
+
+        if (name.length > 0 && gender) {
+            // Simpan data
+            saveLoginSession(name, gender, `${name.toLowerCase().replace(/\s/g, '')}@gmail.com`);
+            
+            // Animasi Loading
+            const btn = loginForm.querySelector('.btn-login');
+            btn.innerText = "Memproses...";
+            setTimeout(() => {
+                location.reload(); 
+            }, 800);
+        } else {
+            alert("Harap lengkapi data!");
         }
     });
-};
+}
+
+// 5. LOGIN DENGAN GOOGLE (Simulasi)
+window.loginWithGoogle = function() {
+    // Tombol Loading
+    const btnGoogle = document.querySelector('.btn-google');
+    const originalContent = btnGoogle.innerHTML;
+    btnGoogle.innerHTML = "Menghubungkan ke Google...";
+    
+    setTimeout(() => {
+        // Simulasi Data User Google
+        const fakeGoogleName = "Sultan Gadget"; 
+        const fakeGoogleEmail = "sultan.gadget@gmail.com";
+        const fakeGender = "google"; // Kode khusus untuk avatar Google
+
+        // Simpan Data
+        saveLoginSession(fakeGoogleName, fakeGender, fakeGoogleEmail);
+        
+        // Notifikasi & Reload
+        showToast("Login Google Berhasil!");
+        setTimeout(() => {
+            location.reload();
+        }, 500);
+
+    }, 1500); // Delay 1.5 detik agar terasa seperti loading asli
+}
+
+// Fungsi Simpan ke LocalStorage
+function saveLoginSession(name, gender, email) {
+    localStorage.setItem('techzone_user', name);
+    localStorage.setItem('techzone_gender', gender);
+    localStorage.setItem('techzone_email', email);
+}
+
+// 6. Fungsi Logout
+window.logoutUser = function() {
+    if(confirm("Yakin ingin keluar akun?")) {
+        localStorage.clear(); // Hapus semua data login
+        location.reload(); 
+    }
+}
+
+// Jalankan saat load
+document.addEventListener("DOMContentLoaded", () => {
+    checkLoginStatus();
+});
 
 // =======================================================
 //                  SETUP MENU & NAVIGASI

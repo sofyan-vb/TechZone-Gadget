@@ -1,3 +1,286 @@
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 100000; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.login-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.login-box {
+    background: var(--dark-bg);
+    padding: 3rem;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    width: 90%;
+    max-width: 400px;
+}
+
+.login-logo {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+.login-logo span { color: var(--primary); }
+
+.input-group-login {
+    display: flex;
+    align-items: center;
+    background: #000;
+    border: 1px solid #333;
+    padding: 10px 15px;
+    margin: 20px 0;
+    border-radius: 50px;
+}
+
+.input-group-login i { color: var(--primary); margin-right: 10px; }
+.input-group-login input {
+    background: transparent;
+    color: #fff;
+    width: 100%;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary);
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    background: #fff;
+    box-shadow: 0 0 15px var(--primary);
+}
+
+
+body.no-scroll { overflow: hidden; }
+
+/* =========================================
+   PERBAIKAN POSISI NAVBAR & USER PROFILE
+   ========================================= */
+
+
+.navbar .navbar-extra {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; 
+    gap: 1rem;         
+}
+
+
+.navbar .navbar-extra a {
+    margin: 0; 
+    display: flex;      
+}
+
+
+.user-menu-container {
+    position: relative; 
+}
+
+.user-avatar {
+    width: 40px;        
+    height: 40px;
+    background-color: var(--primary); 
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+.user-avatar:hover {
+    background-color: #fff;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+#gender-input {
+    background: transparent;
+    color: #fff;
+    width: 100%;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+#gender-input option {
+    background-color: #1a1a1c; 
+    color: #fff;
+}
+
+.btn-google {
+    width: 100%;
+    padding: 12px;
+    background: #ffffff;
+    color: #333;
+    font-weight: bold;
+    border: 1px solid #ddd; /* Border tipis */
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+    
+    /* Flexbox untuk meratakan Logo dan Teks */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-google img {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-google:hover {
+    background: #f1f1f1;
+    border-color: #ccc;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 140%;          
+    right: 0;           
+    width: 320px;       
+    background-color: #1a1a1c; 
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    display: none;     
+    flex-direction: column;
+    z-index: 10000;
+    animation: fadeInDrop 0.2s ease;
+}
+
+
+.user-dropdown.active {
+    display: flex;      
+}
+
+.user-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.user-avatar.large {
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+    background-color: #333;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.user-info h4 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.user-info span {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+
+.user-dropdown hr {
+    border: 0;
+    border-top: 1px solid #333;
+    margin: 0.5rem 0;
+    width: 100%;
+}
+
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    color: #eee !important; 
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.2s;
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0 !important; 
+}
+
+.dropdown-item i {
+    width: 20px;
+    height: 20px;
+    color: var(--primary);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px); 
+}
+
+.dropdown-item.logout:hover {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: #ff4d4d !important;
+}
+
+@keyframes fadeInDrop {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+@media (max-width: 450px) {
+    .user-dropdown {
+        width: 280px;
+        right: -50px;
+    }
+}
+
 :root {
     --primary: #00FFFF; 
     --bg: #000000; 
@@ -61,8 +344,8 @@ body::-webkit-scrollbar {
     font-size: 1.3rem;
     font-weight: 500;
     padding: 8px 12px; 
-    border: 2px solid transparent; /* Border ada tapi transparan */
-    border-radius: 4px; /* Sudut sedikit melengkung seperti tombol di gambar */
+    border: 2px solid transparent; 
+    border-radius: 4px; 
     transition: all 0.3s ease;
     transition: color 0.3s ease;
 }
@@ -95,18 +378,15 @@ body::-webkit-scrollbar {
 }
 
 .navbar .navbar-nav a.active {
-    color: var(--primary);       /* Warna Cyan (#00FFFF) */
-    font-weight: 700;            /* Sedikit lebih tebal */
-    text-shadow: 0 0 8px rgba(0, 255, 255, 0.6); /* Efek teks bersinar */
+    color: var(--primary);       
+    font-weight: 700;            
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.6); 
     
 }
 
-/* 2. PENTING: Pastikan garis bawah TIDAK muncul saat aktif */
 .navbar .navbar-nav a.active::after {
-    transform: scaleX(0) !important; /* Memaksa garis tetap tersembunyi */
+    transform: scaleX(0) !important; 
 }
-
-
 
 #hamburger-menu {
     display: none;
@@ -507,9 +787,9 @@ body::-webkit-scrollbar {
 .product-card .product-card-image, 
 .product-item img {
     width: 100%;
-    height: 16rem;             /* Tinggi tetap agar rapi */
-    object-fit: contain;       /* PENTING: Gambar utuh, tidak terpotong */
-    border-radius: 8px;        /* Sudut sedikit melengkung */
+    height: 16rem;            
+    object-fit: contain;       
+    border-radius: 8px;        
     background-color: transparent;
     margin-bottom: 1rem;
     transition: transform 0.3s ease;
@@ -545,7 +825,7 @@ body::-webkit-scrollbar {
     cursor: pointer;
 }
 
-/* Muncul saat Hover */
+
 .product-img-container:hover .item-detail-btn {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
@@ -809,12 +1089,11 @@ body::-webkit-scrollbar {
 }
 
 .catalog-section {
-    position: relative; /* Penting agar background tidak lari keluar */
-    z-index: 1; /* Pastikan konten berada di atas background */
-    overflow: hidden; /* Mencegah gambar bocor keluar area */
+    position: relative; 
+    z-index: 1; 
+    overflow: hidden;
 }
 
-/* 2. Buat Layer Background Transparan */
 .catalog-section::before {
     content: '';
     position: absolute;
@@ -822,22 +1101,17 @@ body::-webkit-scrollbar {
     left: 0;
     width: 100%;
     height: 100%;
-    
-    /* GANTI URL INI DENGAN GAMBAR ANDA */
     background-image: url('https://i.pinimg.com/736x/52/aa/74/52aa74c6bb23f8d55577f4ffc9ac2f0f.jpg'); 
-    
     background-repeat: no-repeat;
-    background-size: cover; /* Gambar memenuhi area */
+    background-size: cover; 
     background-position: center;
     background-attachment: fixed;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    /* ATUR TRANSPARANSI DI SINI (0.1 = Sangat Tipis, 0.9 = Jelas) */
     opacity: 0.2; 
-    
-    z-index: -1; /* Taruh di belakang konten */
-    filter: grayscale(100%); /* (Opsional) Bikin hitam putih agar tidak norak */
+    z-index: -1; 
+    filter: grayscale(100%); 
 }
 
 .filter-container {
@@ -878,15 +1152,9 @@ body::-webkit-scrollbar {
 }
 
 .product-item {
-    /* Ganti warna solid ini: */
-    /* background-color: var(--dark-bg); */
-    
-    /* Menjadi warna semi-transparan (backdrop filter): */
-    background-color: rgba(26, 26, 28, 0.7); /* Warna hitam dengan transparansi 0.7 */
-    backdrop-filter: blur(10px); /* Efek blur di belakang kartu */
-    -webkit-backdrop-filter: blur(10px); /* Support untuk Safari */
-    
-    /* Sisa kode tetap sama... */
+    background-color: rgba(26, 26, 28, 0.7); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     overflow: hidden;
@@ -936,17 +1204,17 @@ body::-webkit-scrollbar {
 
 .cart-badge {
     position: absolute;
-    top: -5px;             /* Mengatur posisi vertikal */
-    right: -8px;           /* Mengatur posisi horizontal */
-    background-color: #ff0000; /* Warna merah menyala */
-    color: white;          /* Warna angka putih */
-    font-size: 0.7rem;     /* Ukuran angka */
+    top: -5px;             
+    right: -8px;           
+    background-color: #ff0000; 
+    color: white;         
+    font-size: 0.7rem;     
     font-weight: bold;
-    padding: 2px 6px;      /* Jarak dalam lingkaran */
-    border-radius: 50%;    /* Membuat jadi bulat */
-    min-width: 15px;       /* Lebar minimum */
+    padding: 2px 6px;      
+    border-radius: 50%;    
+    min-width: 15px;       
     text-align: center;
-    display: none;         /* Sembunyi dulu kalau 0 (akan diatur JS) */
+    display: none;       
 }
 
 .badge {
@@ -1196,7 +1464,7 @@ body::-webkit-scrollbar {
     padding-left: 1rem;
 }
 
-/* Tombol Show More agar konsisten dengan desain CTA */
+
 #show-more-btn {
     border: none;
     cursor: pointer;
@@ -1229,7 +1497,7 @@ body::-webkit-scrollbar {
     transform: scale(1.05);
 }
 
-/* Styling Modal & Nota */
+
 .modal {
     position: fixed;
     top: 0;
@@ -1272,12 +1540,10 @@ body::-webkit-scrollbar {
 
 .pay-btn {
     width: 100%;
-    /* Gunakan Flexbox untuk mensejajarkan Icon + Teks di tengah */
     display: flex;
-    align-items: center;     /* Vertikal tengah */
-    justify-content: center; /* Horizontal tengah */
-    gap: 10px;               /* Jarak antara icon dan teks */
-    
+    align-items: center;    
+    justify-content: center; 
+    gap: 10px;            
     padding: 1rem;
     background: #fff;
     border: 1px solid #ddd;
@@ -1289,18 +1555,17 @@ body::-webkit-scrollbar {
     transition: all 0.3s ease;
 }
 
-/* --- ICON (Tidak lagi absolute/terkunci) --- */
+
 .pay-btn svg.feather, 
 .pay-btn i {
     width: 24px;
     height: 24px;
     color: #555;
     transition: 0.3s;
-    /* Kita hapus position: absolute agar dia menempel di sebelah teks */
     position: static; 
 }
 
-/* --- EFEK HOVER --- */
+
 .pay-btn:hover {
     border-color: var(--primary);
     background-color: #fcfcfc;
@@ -1315,10 +1580,10 @@ body::-webkit-scrollbar {
     transform: scale(1.1);
 }
 
-/* Desain Nota Struk */
+
 .nota-box {
     background-color: #fff;
-    font-family: 'Courier New', Courier, monospace; /* Font ala struk */
+    font-family: 'Courier New', Courier, monospace; 
     padding: 1rem;
     border: 1px dashed #333;
     margin-top: 1rem;
@@ -1355,46 +1620,39 @@ body::-webkit-scrollbar {
 .btn-download {
     margin-top: 1.5rem;
     width: 100%;
-    
-    /* POSISI TENGAH SEMPURNA (FLEXBOX) */
     display: flex;
-    justify-content: center; /* Rata tengah Horizontal */
-    align-items: center;     /* Rata tengah Vertikal */
-    gap: 12px;               /* Jarak manis antara ikon & teks */
-    
-    /* Desain Visual Mewah */
+    justify-content: center; 
+    align-items: center;     
+    gap: 12px;           
     padding: 1rem;
-    background: var(--primary);  /* Warna mengikuti tema (Emas/Cyan) */
-    color: #000;                 /* Teks hitam agar kontras */
+    background: var(--primary);  
+    color: #000;               
     font-size: 1.1rem;
-    font-weight: 700;            /* Teks tebal */
+    font-weight: 700;           
     border: 2px solid var(--primary);
-    border-radius: 50px;         /* Bentuk Kapsul Modern */
+    border-radius: 50px;        
     cursor: pointer;
     transition: all 0.3s ease;
-    
-    /* Efek Bayangan Bersinar */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Ukuran Ikon di dalam tombol */
+
 .btn-download i {
     width: 24px;
     height: 24px;
-    stroke-width: 2.5; /* Ikon dipertebal sedikit */
+    stroke-width: 2.5; 
 }
 
-/* Efek Hover (Saat Disentuh) */
 .btn-download:hover {
-    background-color: #fff; /* Warna latar jadi putih */
-    color: var(--primary);  /* Teks berubah jadi warna tema */
-    transform: translateY(-3px); /* Tombol melayang naik */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Bayangan makin kuat */
+    background-color: #fff; 
+    color: var(--primary); 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); 
 }
 
-/* Efek Klik */
+
 .btn-download:active {
-    transform: scale(0.95); /* Efek membal saat ditekan */
+    transform: scale(0.95); 
 }
 
 .contact .row {
