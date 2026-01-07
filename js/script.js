@@ -85,7 +85,6 @@ if (loginForm) {
 
 
 window.loginWithGoogle = function() {
-    // Tombol Loading
     const btnGoogle = document.querySelector('.btn-google');
     const originalContent = btnGoogle.innerHTML;
     btnGoogle.innerHTML = "Menghubungkan ke Google...";
@@ -122,7 +121,6 @@ window.logoutUser = function() {
         location.reload(); 
     }
 }
-
 
 document.addEventListener("DOMContentLoaded", () => {
     checkLoginStatus();
