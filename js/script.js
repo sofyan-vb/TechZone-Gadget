@@ -15,10 +15,10 @@ const userEmailDisplay = document.getElementById('user-email-display');
 function checkLoginStatus() {
     const user = localStorage.getItem('techzone_user');
     const gender = localStorage.getItem('techzone_gender');
-    const email = localStorage.getItem('techzone_email'); // Ambil Email
+    const email = localStorage.getItem('techzone_email'); 
 
     if (user && gender) {
-        // Jika data ada, update UI
+       
         updateProfileUI(user, gender, email);
         hideLoginOverlay();
     } else {
@@ -26,13 +26,13 @@ function checkLoginStatus() {
     }
 }
 
-// 2. Fungsi Update UI Profil
+
 function updateProfileUI(name, gender, email) {
     let avatarUrl = '';
     
-    // Logika Avatar: Jika Gender 'google', pakai foto profil ala Google
+    
     if (gender === 'google') {
-        // Foto Placeholder Wanita/Pria random untuk simulasi Google
+        
         avatarUrl = `https://avatar.iran.liara.run/public?username=${name}`; 
     } else if (gender === 'male') {
         avatarUrl = `https://avatar.iran.liara.run/public/boy?username=${name}`;
@@ -40,17 +40,16 @@ function updateProfileUI(name, gender, email) {
         avatarUrl = `https://avatar.iran.liara.run/public/girl?username=${name}`;
     }
 
-    // Update Gambar Avatar
+    
     const imgTag = `<img src="${avatarUrl}" alt="User Avatar">`;
     if(navAvatar) navAvatar.innerHTML = imgTag;
     if(dropdownAvatar) dropdownAvatar.innerHTML = imgTag;
 
-    // Update Nama & Email
     if(userNameDisplay) userNameDisplay.innerText = name;
     if(userEmailDisplay) userEmailDisplay.innerText = email ? email : "member@techzone.id";
 }
 
-// 3. Tampilkan/Sembunyikan Overlay
+
 function showLoginOverlay() {
     loginOverlay.classList.add('active');
     document.body.classList.add('no-scroll');
@@ -60,7 +59,7 @@ function hideLoginOverlay() {
     document.body.classList.remove('no-scroll');
 }
 
-// 4. LOGIN MANUAL (Form Biasa)
+
 if (loginForm) {
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -69,10 +68,10 @@ if (loginForm) {
         const gender = genderInput.value;
 
         if (name.length > 0 && gender) {
-            // Simpan data
+            
             saveLoginSession(name, gender, `${name.toLowerCase().replace(/\s/g, '')}@gmail.com`);
             
-            // Animasi Loading
+         
             const btn = loginForm.querySelector('.btn-login');
             btn.innerText = "Memproses...";
             setTimeout(() => {
@@ -84,7 +83,7 @@ if (loginForm) {
     });
 }
 
-// 5. LOGIN DENGAN GOOGLE (Simulasi)
+
 window.loginWithGoogle = function() {
     // Tombol Loading
     const btnGoogle = document.querySelector('.btn-google');
@@ -92,10 +91,10 @@ window.loginWithGoogle = function() {
     btnGoogle.innerHTML = "Menghubungkan ke Google...";
     
     setTimeout(() => {
-        // Simulasi Data User Google
+        
         const fakeGoogleName = "Sultan Gadget"; 
         const fakeGoogleEmail = "sultan.gadget@gmail.com";
-        const fakeGender = "google"; // Kode khusus untuk avatar Google
+        const fakeGender = "google"; 
 
         // Simpan Data
         saveLoginSession(fakeGoogleName, fakeGender, fakeGoogleEmail);
@@ -106,25 +105,25 @@ window.loginWithGoogle = function() {
             location.reload();
         }, 500);
 
-    }, 1500); // Delay 1.5 detik agar terasa seperti loading asli
+    }, 1500); 
 }
 
-// Fungsi Simpan ke LocalStorage
+
 function saveLoginSession(name, gender, email) {
     localStorage.setItem('techzone_user', name);
     localStorage.setItem('techzone_gender', gender);
     localStorage.setItem('techzone_email', email);
 }
 
-// 6. Fungsi Logout
+
 window.logoutUser = function() {
     if(confirm("Yakin ingin keluar akun?")) {
-        localStorage.clear(); // Hapus semua data login
+        localStorage.clear(); 
         location.reload(); 
     }
 }
 
-// Jalankan saat load
+
 document.addEventListener("DOMContentLoaded", () => {
     checkLoginStatus();
 });
@@ -156,13 +155,13 @@ const userBtn = document.getElementById('user-btn');
 const userDropdown = document.getElementById('user-dropdown');
 
 if (userBtn && userDropdown) {
-    // 1. Saat tombol avatar diklik, toggle class 'active'
+    
     userBtn.addEventListener('click', function(e) {
-        e.preventDefault(); // Mencegah scroll ke atas
+        e.preventDefault(); 
         userDropdown.classList.toggle('active');
     });
 
-    // 2. Tutup dropdown jika klik di luar area menu
+
     document.addEventListener('click', function(e) {
         if (!userBtn.contains(e.target) && !userDropdown.contains(e.target)) {
             userDropdown.classList.remove('active');
@@ -283,7 +282,7 @@ function showToast(msg) {
 }
 
 function renderCart() {
-    // 1. Update Badge (Angka Merah)
+   
     if (typeof updateCartBadge === "function") updateCartBadge(); 
 
     const cartContainer = document.querySelector('#cart-items-content');
@@ -292,7 +291,7 @@ function renderCart() {
     let total = 0;
     let html = '';
 
-    // --- KONDISI 1: KERANJANG KOSONG ---
+   
     if (cart.length === 0) {
         cartContainer.innerHTML = `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 1rem; text-align: center;">
@@ -304,10 +303,9 @@ function renderCart() {
             </div>
         `;
         updatePriceText(0);
-        toggleCheckoutBtn(false); // Sembunyikan tombol checkout
+        toggleCheckoutBtn(false); 
     } 
     
-    // --- KONDISI 2: ADA BARANG ---
     else {
         cart.forEach((item, index) => {
             let subtotal = item.price * item.qty;
@@ -331,10 +329,10 @@ function renderCart() {
 
         cartContainer.innerHTML = html;
         updatePriceText(total);
-        toggleCheckoutBtn(true); // Tampilkan tombol checkout
+        toggleCheckoutBtn(true); 
     }
     
-    // PENTING: Refresh Icon agar muncul gambarnya
+    
     if (typeof feather !== 'undefined') feather.replace();
 }
 
@@ -512,7 +510,6 @@ window.finishOrder = function() {
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Ambil semua elemen yang dibutuhkan
     const filterButtons = document.querySelectorAll('.filter-btn');
     const productItems = document.querySelectorAll('.product-item');
     const backBtn = document.getElementById('back-to-home');
@@ -520,9 +517,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Fungsi Filter
     filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Hapus class 'active' dari semua tombol
+            
             filterButtons.forEach(b => b.classList.remove('active'));
-            // Tambah class 'active' ke tombol yang diklik
+         
             btn.classList.add('active');
 
             const categoryValue = btn.getAttribute('data-filter');
@@ -532,9 +529,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (categoryValue === 'all' || itemCategory === categoryValue) {
                     item.style.display = 'block';
-                    // Reset animasi agar efek muncul ulang
                     item.style.animation = 'none';
-                    item.offsetHeight; /* trigger reflow */
+                    item.offsetHeight; 
                     item.style.animation = 'fadeUp 0.5s ease forwards';
                 } else {
                     item.style.display = 'none';
@@ -543,11 +539,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Fungsi Tombol Home (Menggunakan fungsi transitionTo dari script.js utama)
     if(backBtn) {
         backBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            // Cek apakah fungsi transitionTo ada (dari script.js global)
+        
             if (typeof transitionTo === "function") {
                 transitionTo('index.html', 100);
             } else {
@@ -564,14 +559,13 @@ const lightbox = document.getElementById('image-lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 
 window.openLightbox = function(element) {
-    // Cari elemen gambar di dekat tombol mata yang diklik
-    // Menggunakan closest untuk mencari container, lalu cari img di dalamnya
+   
     const container = element.closest('.product-img-container');
     const img = container.querySelector('img');
     
     if (img && lightbox && lightboxImg) {
         lightbox.style.display = "flex";
-        lightboxImg.src = img.src; // Ambil source gambar produk
+        lightboxImg.src = img.src; 
     }
 }
 
@@ -598,20 +592,18 @@ const detailModal = document.getElementById('product-detail-modal');
 window.openDetail = function(element) {
     if(event) event.preventDefault();
     
-    // 1. Ambil data dari atribut HTML tombol
     const title = element.getAttribute('data-title');
     const priceStr = element.getAttribute('data-price'); 
     const desc = element.getAttribute('data-desc');
     const specsRaw = element.getAttribute('data-specs'); 
     const imgSrc = element.getAttribute('data-img');
-    
-    // 2. Masukkan data ke elemen Popup
+
     document.getElementById('detail-title').innerText = title;
     document.getElementById('detail-price').innerText = `IDR ${priceStr}`;
     document.getElementById('detail-desc').innerText = desc;
     document.getElementById('detail-img').src = imgSrc;
     
-    // 3. Proses List Spesifikasi
+    
     const specsList = document.getElementById('detail-specs');
     specsList.innerHTML = ''; 
     
@@ -624,42 +616,34 @@ window.openDetail = function(element) {
         });
     }
 
-    // --- BAGIAN YANG DIPERBAIKI ---
-    // 4. Update Tombol agar Sinkron dengan Keranjang
+  
     const modalCartBtn = document.getElementById('detail-cart-btn');
     
-    // a. Clone tombol untuk menghapus event listener lama yang menumpuk
+    
     const newBtn = modalCartBtn.cloneNode(true);
     modalCartBtn.parentNode.replaceChild(newBtn, modalCartBtn);
 
-    // b. Tambahkan class 'add-to-cart-btn' agar terdeteksi oleh updateAllButtons()
     newBtn.classList.add('add-to-cart-btn');
 
-    // c. Set Data Attributes agar logika global bisa membacanya
     newBtn.setAttribute('data-name', title);
     
-    // Penting: Bersihkan titik pada harga agar terbaca sebagai angka oleh sistem global
     const cleanPrice = parseFloat(priceStr.replace(/\./g,''));
     newBtn.setAttribute('data-price', cleanPrice);
 
-    // d. Panggil updateAllButtons() 
-    // Ini akan otomatis mengecek: Apakah item ini ada di cart?
-    // Jika YA: Tombol berubah jadi (- 1 +)
-    // Jika TIDAK: Tombol berubah jadi (+ Keranjang)
     if (typeof updateAllButtons === "function") {
         updateAllButtons(); 
     }
 
-    // 5. Tampilkan Modal
+ 
     detailModal.style.display = 'flex';
 }
 
-// Fungsi Tutup Modal
+
 window.closeDetailModal = function() {
     if(detailModal) detailModal.style.display = 'none';
 }
 
-// Tutup jika klik area hitam di luar popup
+
 if (detailModal) {
     detailModal.addEventListener('click', function(e) {
         if (e.target === detailModal) {
@@ -674,38 +658,34 @@ if (detailModal) {
 // ========================================
 
 function downloadReceipt() {
-    // 1. Cari elemen nota dan tombol
+
     const notaElement = document.querySelector('.nota-box');
     const btn = document.querySelector('.btn-download');
     
-    // Cek apakah elemen ada
+   
     if (!notaElement) {
         alert("Error: Elemen struk tidak ditemukan.");
         return;
     }
 
-    // 2. Ubah teks tombol agar user tahu proses berjalan
     const originalText = btn.innerHTML;
     btn.innerHTML = 'Sedang Menyimpan...';
     
-    // 3. Gunakan html2canvas untuk screenshot
+   
     html2canvas(notaElement, { scale: 2 }).then(canvas => {
-        // Buat link download palsu
+        
         const link = document.createElement('a');
         link.download = 'Struk-TechZone-' + Date.now() + '.jpg';
         link.href = canvas.toDataURL('image/jpeg');
         link.click();
-        
-        // Kembalikan teks tombol
+      
         btn.innerHTML = originalText;
 
-        // 4. Reset dan Reload halaman
+      
         setTimeout(() => {
             alert("Terima kasih! Struk berhasil disimpan.");
             
-            // Hapus data keranjang (Opsional, sesuaikan dengan logika penyimpanan Anda)
-            // localStorage.removeItem('cart'); 
-            
+           
             location.reload(); 
         }, 1000);
     }).catch(err => {
@@ -718,12 +698,11 @@ function downloadReceipt() {
 
 function updateCartBadge() {
     const badge = document.getElementById('cart-badge');
-    // Hitung total semua barang (misal: 2 HP + 1 TWS = 3 item)
     const totalItems = cart.reduce((total, item) => total + item.qty, 0);
 
     if (badge) {
         badge.innerText = totalItems;
-        // Jika ada barang, tampilkan badge. Jika 0, sembunyikan.
+       
         if (totalItems > 0) {
             badge.style.display = 'block';
         } else {
