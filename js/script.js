@@ -125,6 +125,149 @@ document.addEventListener("DOMContentLoaded", () => {
     checkLoginStatus();
 });
 
+
+// =======================================================
+//           LOGIKA PROFIL & RIWAYAT PESANAN
+// =======================================================
+
+window.openProfileModal = function() {
+    const modal = document.getElementById('profile-modal');
+    const nameInput = document.getElementById('edit-name');
+    const emailInput = document.getElementById('edit-email');
+    const avatarContainer = document.getElementById('profile-modal-avatar');
+    const currentName = sessionStorage.getItem('techzone_user') || 'Guest';
+    const currentEmail = sessionStorage.getItem('techzone_email') || 'user@techzone.id';
+    const currentGender = sessionStorage.getItem('techzone_gender');
+
+    
+    nameInput.value = currentName;
+    emailInput.value = currentEmail;
+
+    
+    let avatarUrl = '';
+    if (currentGender === 'male') {
+        avatarUrl = `https://avatar.iran.liara.run/public/boy?username=${currentName}`;
+    } else if (currentGender === 'female') {
+        avatarUrl = `https://avatar.iran.liara.run/public/girl?username=${currentName}`;
+    } else {
+        avatarUrl = `https://avatar.iran.liara.run/public?username=${currentName}`;
+    }
+    avatarContainer.innerHTML = `<img src="${avatarUrl}" alt="Profile">`;
+
+    
+    const userDropdown = document.getElementById('user-dropdown');
+    if(userDropdown) userDropdown.classList.remove('active');
+    
+ 
+    modal.style.display = 'flex';
+}
+
+
+const editProfileForm = document.getElementById('edit-profile-form');
+if (editProfileForm) {
+    editProfileForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const newName = document.getElementById('edit-name').value;
+        sessionStorage.setItem('techzone_user', newName);
+        const gender = sessionStorage.getItem('techzone_gender');
+        const email = sessionStorage.getItem('techzone_email');
+    
+        if (typeof updateProfileUI === "function") {
+            updateProfileUI(newName, gender, email);
+        }
+
+        alert("Profil berhasil diperbarui!");
+        closeUserModals();
+    });
+}
+
+window.openOrdersModal = function() {
+    const modal = document.getElementById('orders-modal');
+    const listContainer = document.getElementById('order-history-list');
+    const history = JSON.parse(localStorage.getItem('techzone_order_history')) || [];
+    const userDropdown = document.getElementById('user-dropdown');
+    if(userDropdown) userDropdown.classList.remove('active');
+
+    
+    if (history.length === 0) {
+        listContainer.innerHTML = `
+            <div style="text-align:center; padding: 3rem 1rem;">
+                <i data-feather="package" style="width:50px; height:50px; color:#ddd; margin-bottom:10px;"></i>
+                <p style="color:#777;">Belum ada riwayat pesanan.</p>
+                <a href="products.html" onclick="closeUserModals()" style="color: blue; text-decoration: underline; font-size: 0.9rem;">Belanja Sekarang</a>
+            </div>`;
+    } else {
+        let html = '';
+       
+        history.reverse().forEach(order => {
+            html += `
+            <div style="background: #fff; border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <div style="display:flex; justify-content:space-between; border-bottom:1px solid #eee; padding-bottom:8px; margin-bottom:10px;">
+                    <strong style="color: #333;">${order.id}</strong>
+                    <span style="font-size:0.8rem; color:#888;">${order.date}</span>
+                </div>
+                <div style="font-size: 0.9rem; color: #444; margin-bottom: 10px;">
+                    ${order.items.map(item => `<div style="margin-bottom:2px;">• ${item.name} <span style="color:#888;">(x${item.qty})</span></div>`).join('')}
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #ddd; padding-top: 8px;">
+                    <span style="font-size: 0.8rem; background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px;">${order.method}</span>
+                    <strong style="color: #000;">IDR ${order.total.toLocaleString('id-ID')}</strong>
+                </div>
+            </div>`;
+        });
+        listContainer.innerHTML = html;
+    }
+
+    modal.style.display = 'flex';
+    if (typeof feather !== 'undefined') feather.replace();
+}
+
+window.finishOrder = function() {
+ 
+    let totalAmount = 0;
+    cart.forEach(item => totalAmount += (item.price * item.qty));
+    const orderId = document.getElementById('nota-id').innerText;
+    const method = document.getElementById('nota-method').innerText;
+    const date = document.getElementById('nota-date').innerText;
+
+   
+    const newOrder = {
+        id: orderId,
+        date: date,
+        items: [...cart], 
+        total: totalAmount,
+        method: method
+    };
+
+  
+    const currentHistory = JSON.parse(localStorage.getItem('techzone_order_history')) || [];
+    currentHistory.push(newOrder);
+    localStorage.setItem('techzone_order_history', JSON.stringify(currentHistory));
+
+  
+    alert("Pesanan Selesai! Riwayat tersimpan.");
+
+    cart = [];
+    if (typeof renderCart === "function") renderCart();
+    if (typeof updateAllButtons === "function") updateAllButtons();
+    
+
+    const checkoutModal = document.getElementById('checkout-modal');
+    if(checkoutModal) checkoutModal.style.display = 'none';
+
+    const paySection = document.getElementById('payment-section');
+    const billSection = document.getElementById('bill-section');
+    if(paySection) paySection.style.display = 'block';
+    if(billSection) billSection.style.display = 'none';
+}
+
+window.closeUserModals = function() {
+    const pModal = document.getElementById('profile-modal');
+    const oModal = document.getElementById('orders-modal');
+    if(pModal) pModal.style.display = 'none';
+    if(oModal) oModal.style.display = 'none';
+}
+
 // =======================================================
 //                  SETUP MENU & NAVIGASI
 // =======================================================
@@ -165,6 +308,7 @@ if (userBtn && userDropdown) {
         }
     });
 }
+
 
 // =======================================================
 //           LOGIKA KERANJANG (CART SYSTEM)
