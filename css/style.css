@@ -20,6 +20,7 @@
     visibility: visible;
 }
 
+
 .login-box {
     background: var(--dark-bg);
     padding: 3rem;
@@ -51,7 +52,11 @@
     border-radius: 50px;
 }
 
-.input-group-login i { color: var(--primary); margin-right: 10px; }
+.input-group-login i { 
+    color: var(--primary);
+    margin-right: 10px; 
+}
+
 .input-group-login input {
     background: transparent;
     color: #fff;
@@ -148,13 +153,11 @@ body.no-scroll { overflow: hidden; }
     background: #ffffff;
     color: #333;
     font-weight: bold;
-    border: 1px solid #ddd; /* Border tipis */
+    border: 1px solid #ddd; 
     border-radius: 50px;
     cursor: pointer;
     font-size: 1rem;
     transition: 0.3s;
-    
-    /* Flexbox untuk meratakan Logo dan Teks */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -351,7 +354,7 @@ body::-webkit-scrollbar {
 }
 
 .navbar .navbar-nav a:hover {
-    color: var(--primary);
+    color: #fff
 }
 
 .navbar .navbar-nav a::after {

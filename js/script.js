@@ -6,22 +6,23 @@ const loginOverlay = document.getElementById('login-overlay');
 const loginForm = document.getElementById('login-form');
 const usernameInput = document.getElementById('username-input');
 const genderInput = document.getElementById('gender-input');
-
 const navAvatar = document.getElementById('nav-avatar');
 const dropdownAvatar = document.getElementById('dropdown-avatar');
 const userNameDisplay = document.getElementById('user-name-display');
 const userEmailDisplay = document.getElementById('user-email-display');
 
+
 function checkLoginStatus() {
-    const user = localStorage.getItem('techzone_user');
-    const gender = localStorage.getItem('techzone_gender');
-    const email = localStorage.getItem('techzone_email'); 
+
+    const user = sessionStorage.getItem('techzone_user');
+    const gender = sessionStorage.getItem('techzone_gender');
+    const email = sessionStorage.getItem('techzone_email'); 
 
     if (user && gender) {
-       
         updateProfileUI(user, gender, email);
         hideLoginOverlay();
     } else {
+      
         showLoginOverlay();
     }
 }
@@ -40,7 +41,6 @@ function updateProfileUI(name, gender, email) {
         avatarUrl = `https://avatar.iran.liara.run/public/girl?username=${name}`;
     }
 
-    
     const imgTag = `<img src="${avatarUrl}" alt="User Avatar">`;
     if(navAvatar) navAvatar.innerHTML = imgTag;
     if(dropdownAvatar) dropdownAvatar.innerHTML = imgTag;
@@ -95,10 +95,9 @@ window.loginWithGoogle = function() {
         const fakeGoogleEmail = "sultan.gadget@gmail.com";
         const fakeGender = "google"; 
 
-        // Simpan Data
+
         saveLoginSession(fakeGoogleName, fakeGender, fakeGoogleEmail);
-        
-        // Notifikasi & Reload
+  
         showToast("Login Google Berhasil!");
         setTimeout(() => {
             location.reload();
@@ -109,15 +108,15 @@ window.loginWithGoogle = function() {
 
 
 function saveLoginSession(name, gender, email) {
-    localStorage.setItem('techzone_user', name);
-    localStorage.setItem('techzone_gender', gender);
-    localStorage.setItem('techzone_email', email);
+    sessionStorage.setItem('techzone_user', name);
+    sessionStorage.setItem('techzone_gender', gender);
+    sessionStorage.setItem('techzone_email', email);
 }
 
 
 window.logoutUser = function() {
     if(confirm("Yakin ingin keluar akun?")) {
-        localStorage.clear(); 
+        sessionStorage.clear();
         location.reload(); 
     }
 }
