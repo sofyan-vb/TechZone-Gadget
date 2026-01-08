@@ -225,9 +225,14 @@ window.openOrdersModal = function() {
     if (history.length === 0) {
         listContainer.innerHTML = `
             <div style="text-align:center; padding: 3rem 1rem;">
-                <i data-feather="package" style="width:50px; height:50px; color:#ddd; margin-bottom:10px;"></i>
-                <p style="color:#777;">Belum ada riwayat pesanan.</p>
-                <a href="products.html" onclick="closeUserModals()" style="color: blue; text-decoration: underline; font-size: 0.9rem;">Belanja Sekarang</a>
+                <i data-feather="package" style="width:60px; height:60px; color:#333; margin-bottom:15px;"></i>
+                
+                <h4 style="color:#fff; margin-bottom:5px;">Belum ada riwayat pesanan</h4>
+                <p style="color:#888; font-size:0.9rem;">Yuk mulai belanja gadget impianmu!</p>
+                
+                <a href="products.html" onclick="closeUserModals()" class="btn-shop-now">
+                    <i data-feather="shopping-bag"></i> Belanja Sekarang
+                </a>
             </div>`;
     } else {
         let html = '';
@@ -300,6 +305,123 @@ window.closeUserModals = function() {
     if(pModal) pModal.style.display = 'none';
     if(oModal) oModal.style.display = 'none';
 }
+
+// =========================================
+//       LOGIKA PENCARIAN TERPISAH 
+// =========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+   
+    const heroInput = document.getElementById('hero-search-input'); 
+    const heroBtn = document.getElementById('hero-search-btn');
+    const catalogInput = document.getElementById('catalog-search-input'); 
+    const catalogBtn = document.getElementById('catalog-search-btn');
+
+    let originalIndexContent = "";
+    const indexContainer = document.querySelector('#products .row');
+    if (indexContainer) {
+        originalIndexContent = indexContainer.innerHTML;
+    }
+
+    // -----------------------------------------------------
+    //          LOGIKA PENCARIAN DI HOME (INDEX)
+    // -----------------------------------------------------
+    function searchOnHome() {
+        if (!heroInput || !indexContainer) return;
+        
+        const query = heroInput.value.toLowerCase().trim();
+        
+        indexContainer.innerHTML = originalIndexContent;
+        feather.replace(); 
+        
+        if (query === "") {
+            updateAllButtons();
+            return;
+        }
+
+        let foundCount = 0;
+        const productCards = indexContainer.querySelectorAll('.product-card');
+
+        productCards.forEach(card => {
+            const title = card.querySelector('h3').innerText.toLowerCase();
+            if (title.includes(query)) {
+                card.style.display = 'block'; 
+                foundCount++;
+            } else {
+                card.style.display = 'none'; 
+            }
+        });
+
+        if (foundCount === 0) {
+            indexContainer.innerHTML = `
+            <div style="width:100%; text-align:center; padding:4rem 1rem; color:#888; grid-column: 1 / -1;">
+                <i data-feather="search" style="width:60px; height:60px; margin-bottom:1rem; opacity:0.5;"></i>
+                <h3 style="color:#fff; margin-bottom:0.5rem;">Yah, Produk Tidak Ditemukan</h3>
+                <p style="margin-bottom:1.5rem;">Kami tidak menemukan produk dengan kata kunci "<strong>${query}</strong>" di halaman utama.</p>
+                
+                <button onclick="resetHomeSearch()" style="padding:10px 25px; background:var(--primary); color:#000; border:none; border-radius:50px; font-weight:bold; cursor:pointer;">
+                    <i data-feather="refresh-ccw" style="width:14px; height:14px; margin-right:5px;"></i> Tampilkan Semua Produk
+                </button>
+            </div>`;
+            feather.replace();
+        }
+
+        const productsSection = document.getElementById('products');
+        if(productsSection) productsSection.scrollIntoView({ behavior: 'smooth' });
+        
+        updateAllButtons();
+    }
+
+    
+    window.resetHomeSearch = function() {
+        if(heroInput) heroInput.value = "";
+        indexContainer.innerHTML = originalIndexContent;
+        feather.replace();
+        updateAllButtons();
+    }
+
+
+    if (heroBtn) { heroBtn.addEventListener('click', (e) => { e.preventDefault(); searchOnHome(); }); }
+    if (heroInput) { heroInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchOnHome(); } }); }
+
+
+    // -----------------------------------------------------
+    //       LOGIKA PENCARIAN DI KATALOG (PRODUCTS)
+    // -----------------------------------------------------
+    function searchInCatalog() {
+        if (!catalogInput) return;
+        
+        const query = catalogInput.value.toLowerCase().trim();
+        const productCards = document.querySelectorAll('.product-item');
+        let found = false;
+
+        if(query === "") {
+             productCards.forEach(card => card.style.display = 'block');
+             return;
+        }
+
+        productCards.forEach(card => {
+            const title = card.querySelector('h3').innerText.toLowerCase();
+            if (title.includes(query)) {
+                card.style.display = 'block';
+                card.style.animation = 'none'; 
+                card.offsetHeight; 
+                card.style.animation = 'fadeUp 0.5s ease forwards';
+                found = true;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        if(found) {
+            const grid = document.querySelector('.product-grid');
+            if(grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    if (catalogBtn) { catalogBtn.addEventListener('click', (e) => { e.preventDefault(); searchInCatalog(); }); }
+    if (catalogInput) { catalogInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchInCatalog(); } }); }
+});
 
 // =======================================================
 //                  SETUP MENU & NAVIGASI
@@ -688,35 +810,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const productItems = document.querySelectorAll('.product-item');
     const backBtn = document.getElementById('back-to-home');
 
-    // 2. Fungsi Filter
+    function runFilter(categoryValue) {
+ 
+        filterButtons.forEach(b => {
+            b.classList.remove('active');
+          
+            if(b.getAttribute('data-filter') === categoryValue) {
+                b.classList.add('active');
+            }
+        });
+
+        productItems.forEach(item => {
+            const itemCategory = item.getAttribute('data-category');
+            
+            if (categoryValue === 'all' || itemCategory === categoryValue) {
+                item.style.display = 'block';
+                item.style.animation = 'none';
+                item.offsetHeight; 
+                item.style.animation = 'fadeUp 0.5s ease forwards';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
     filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            
-            filterButtons.forEach(b => b.classList.remove('active'));
-         
-            btn.classList.add('active');
-
             const categoryValue = btn.getAttribute('data-filter');
-
-            productItems.forEach(item => {
-                const itemCategory = item.getAttribute('data-category');
-
-                if (categoryValue === 'all' || itemCategory === categoryValue) {
-                    item.style.display = 'block';
-                    item.style.animation = 'none';
-                    item.offsetHeight; 
-                    item.style.animation = 'fadeUp 0.5s ease forwards';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+            runFilter(categoryValue);
         });
     });
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterParam = urlParams.get('filter');
+
+    if (filterParam) {
+     
+        runFilter(filterParam);
+    } else {
+        
+    }
+
+  
     if(backBtn) {
         backBtn.addEventListener('click', (e) => {
             e.preventDefault();
-        
             if (typeof transitionTo === "function") {
                 transitionTo('index.html', 100);
             } else {
@@ -725,36 +863,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-// =======================================================
-//           FITUR LIGHTBOX (ZOOM GAMBAR)
-// =======================================================
-const lightbox = document.getElementById('image-lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-
-window.openLightbox = function(element) {
-   
-    const container = element.closest('.product-img-container');
-    const img = container.querySelector('img');
-    
-    if (img && lightbox && lightboxImg) {
-        lightbox.style.display = "flex";
-        lightboxImg.src = img.src; 
-    }
-}
-
-window.closeLightbox = function() {
-    if(lightbox) lightbox.style.display = "none";
-}
-
-// Tutup jika klik area hitam (background)
-if (lightbox) {
-    lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
-}
 
 
 // =======================================================

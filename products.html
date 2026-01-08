@@ -24,30 +24,54 @@
             Tech<span>Zone</span>
         </div>
 
-        <div class="navbar-nav">
-            <a href="index.html">Home</a>
-             <a href="index.html#about">Tentang Kami</a>
-            <a href="index.html#contact">Kontak</a> 
+        <div class="navbar-nav"> 
         </div>
         
         <div class="navbar-extra">
-            <a href="#" id="search"><i data-feather="search"></i></a>
-            <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
+            <a href="#" id="shopping-cart" style="position: relative;">
+                <i data-feather="shopping-cart"></i>
+                <span id="cart-badge" class="cart-badge" style="display: none;">0</span>
+    </a>
             <a href="javascript:void(0)" onclick="transitionTo('index.html')" id="back-to-home" aria-label="Kembali ke Beranda" style="margin-left: 4rem;">
                 <i data-feather="home"></i>
             </a>
-            <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+
+            <div class="user-menu-container">
+            <a href="javascript:void(0)" id="user-btn">
+            <div class="user-avatar" id="nav-avatar">?</div>
+    </a>
+    
+            <div class="user-dropdown" id="user-dropdown">
+            <div class="user-dropdown-header">
+            <div class="user-avatar large" id="dropdown-avatar">?</div>
+            <div class="user-info">
+                <h4 id="user-name-display">Guest</h4>
+                <span id="user-role-display">Member TechZone</span>
+            </div>
         </div>
+        <hr>
+        <a href="javascript:void(0)" onclick="openProfileModal()" class="dropdown-item"><i data-feather="user"></i> Profil Saya</a>
+        <a href="javascript:void(0)" onclick="openOrdersModal()" class="dropdown-item"><i data-feather="package"></i> Pesanan Saya</a>
+        <hr>
+        <a href="javascript:void(0)" onclick="logoutUser()" class="dropdown-item logout"><i data-feather="log-out"></i> Keluar</a>
+    </div>
+</div>
     </nav>
 
     <section class="catalog-section">
         <div class="catalog-header">
-            <h2>Katalog <span>Lengkap</span></h2>
+            <h2>Produk <span>Lengkap</span></h2>
             <p>Gunakan filter di bawah untuk menemukan gadget impian Anda.</p>
+
+        <div class="hero-search-container" style="margin-top: 1.5rem;">
+            <input type="text" id="catalog-search-input" placeholder="Cari nama produk...">
+        <button id="catalog-search-btn"><i data-feather="search"></i></button>
+    </div>
         </div>
 
         <div class="filter-container">
             <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="promo" style="border-color: #d63384; color: #d63384;">Promo Spesial</button>
             <button class="filter-btn" data-filter="smartphone">Smartphone</button>
             <button class="filter-btn" data-filter="audio">Audio & TWS</button>
             <button class="filter-btn" data-filter="watch">Smartwatch</button>
@@ -55,6 +79,68 @@
         </div>
 
         <div class="product-grid">
+        <div class="product-item" data-category="promo" style="border: 2px solid #d63384; box-shadow: 0 0 10px rgba(214, 51, 132, 0.2);">
+    
+        <div class="product-badge promo-badge" style="background: linear-gradient(45deg, #ff00cc, #333399); box-shadow: 0 0 10px #ff00cc;">
+            <i data-feather="gift"></i> Promo 30%
+    </div>
+    
+        <div class="product-img-container">
+            <img src="https://i.pinimg.com/736x/66/79/1c/66791c3925fc1ca2b3bfc9ceaf3cb0e4.jpg" alt="Paket Gaming">
+            <a class="item-detail-btn" onclick="openDetail(this)"
+           data-title="Paket Gaming Hemat"
+           data-price="1500000"
+           data-desc="Paket bundling spesial! Headset + Mouse + Mousepad."
+           data-specs="Headset 7.1, Mouse 16000 DPI, Garansi 1 Tahun"
+           data-img="https://i.pinimg.com/736x/66/79/1c/66791c3925fc1ca2b3bfc9ceaf3cb0e4.jpg">
+            <i data-feather="eye"></i>
+        </a>
+        <span class="zoom-text">Lihat Detail</span>
+    </div>
+        <div class="details">
+            <h3 style="color: #d63384;">Paket Gaming Hemat</h3>
+            <p class="price">
+                <span style="text-decoration: line-through; color: #666; font-size: 0.9rem;">2.150.000</span> 
+                <span style="color: #fff;">1.500.000</span>
+        </p>
+                <a href="javascript:void(0)" class="add-to-cart-btn" data-name="Paket Gaming Hemat" data-price="1500000" style="background-color: #d63384; border:none;">
+                <i data-feather="shopping-bag"></i> Ambil Promo
+        </a>
+    </div>
+</div>
+        
+        <div class="product-item" data-category="promo" style="border: 2px solid #d63384; box-shadow: 0 0 10px rgba(214, 51, 132, 0.2);">
+        <div class="product-badge promo-badge" style="background: linear-gradient(45deg, #ff00cc, #333399); box-shadow: 0 0 10px #ff00cc;">
+            <i data-feather="gift"></i> Promo Hemat 500rb
+    </div>
+    
+    <div class="product-img-container">
+        <img src="https://i.pinimg.com/1200x/7b/dc/9b/7bdc9b4f64a3c87e643595696fc0fb75.jpg" alt="Paket Couple">
+        <a class="item-detail-btn" onclick="openDetail(this)"
+           data-title="Paket Smartwatch Couple"
+           data-price="1200000"
+           data-desc="Beli 2 Smartwatch FitBand Pro 8 (Hitam & Pink) lebih hemat! Cocok untuk hadiah pasangan. Fitur kesehatan lengkap & baterai awet 15 hari."
+           data-specs="2x FitBand Pro 8, Layar AMOLED, SpO2 Tracking, Tahan Air 5ATM"
+           data-img="https://i.pinimg.com/1200x/7b/dc/9b/7bdc9b4f64a3c87e643595696fc0fb75.jpg">
+            <i data-feather="eye"></i>
+        </a>
+        <span class="zoom-text">Lihat Detail</span>
+    </div>
+
+    <div class="details">
+        <h3 style="color: #d63384;">Paket Smartwatch Couple</h3>
+        <p class="price">
+            <span style="text-decoration: line-through; color: #666; font-size: 0.9rem;">1.700.000</span> 
+            <span style="color: #fff;">1.200.000</span>
+        </p>
+        
+        <div class="product-sold" style="color: #d63384; margin-bottom:10px;"><i data-feather="clock"></i> Flash Sale!</div>
+
+        <a href="javascript:void(0)" class="add-to-cart-btn" data-name="Paket Smartwatch Couple" data-price="1200000" style="background-color: #d63384; border:none;">
+            <i data-feather="shopping-bag"></i> Ambil Promo
+        </a>
+    </div>
+</div>
             
             <div class="product-item" data-category="smartphone">
                 <div class="badge"><i data-feather="star"></i> Best Seller</div>
@@ -445,6 +531,43 @@
             </div>
         </div>
     </div>
+
+
+    <div id="profile-modal" class="modal" style="display: none;">
+    <div class="modal-container" style="max-width: 400px;">
+        <a href="javascript:void(0)" onclick="closeUserModals()" class="close-icon"><i data-feather="x"></i></a>
+        <h3 style="text-align: center; margin-bottom: 1.5rem;">Profil Saya</h3>
+        
+        <div style="text-align: center; margin-bottom: 1rem;">
+            <div id="profile-modal-avatar" class="user-avatar large" style="margin: 0 auto; width: 80px; height: 80px; font-size: 2rem;">?</div>
+        </div>
+
+        <form id="edit-profile-form">
+            <div class="input-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.9rem;">Nama Lengkap</label>
+                <input type="text" id="edit-name" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" required>
+            </div>
+            
+            <div class="input-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.9rem;">Email</label>
+                <input type="email" id="edit-email" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" readonly style="background: #eee;">
+            </div>
+
+            <button type="submit" class="cta" style="width: 100%; border: none; cursor: pointer;">Simpan Perubahan</button>
+        </form>
+    </div>
+</div>
+
+<div id="orders-modal" class="modal" style="display: none;">
+    <div class="modal-container" style="max-width: 600px;">
+        <a href="javascript:void(0)" onclick="closeUserModals()" class="close-icon"><i data-feather="x"></i></a>
+        <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid #ccc; padding-bottom: 10px;">Riwayat Pesanan</h3>
+        
+        <div id="order-history-list" style="max-height: 400px; overflow-y: auto;">
+            <p style="text-align: center; color: #777;">Belum ada riwayat pesanan.</p>
+        </div>
+    </div>
+</div>
 
     <script src="js/script.js"></script>
     <script>
