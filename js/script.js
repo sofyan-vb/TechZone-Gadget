@@ -47,36 +47,43 @@ const userEmailDisplay = document.getElementById('user-email-display');
 
 function checkLoginStatus() {
 
-    const user = sessionStorage.getItem('techzone_user');
-    const gender = sessionStorage.getItem('techzone_gender');
-    const email = sessionStorage.getItem('techzone_email'); 
+    sessionStorage.removeItem('techzone_user');
+    sessionStorage.removeItem('techzone_gender');
+    sessionStorage.removeItem('techzone_email');
 
-    if (user && gender) {
-        updateProfileUI(user, gender, email);
-        hideLoginOverlay();
-    } else {
-      
-        showLoginOverlay();
-    }
+    showLoginOverlay();
 }
 
 
 function updateProfileUI(name, gender, email) {
+    
     let avatarUrl = '';
-    
-    
-    if (gender === 'google') {
+
+    if (gender === 'male' || gender === 'google') {
+        avatarUrl = `https://api.dicebear.com/9.x/micah/png?seed=Felix&backgroundColor=b6e3f4&radius=50`; 
+    } else if (gender === 'female') {
         
-        avatarUrl = `https://avatar.iran.liara.run/public?username=${name}`; 
-    } else if (gender === 'male') {
-        avatarUrl = `https://avatar.iran.liara.run/public/boy?username=${name}`;
+        avatarUrl = `https://api.dicebear.com/9.x/micah/png?seed=Jessica&backgroundColor=ffdfbf&radius=50`;
     } else {
-        avatarUrl = `https://avatar.iran.liara.run/public/girl?username=${name}`;
+        
+        avatarUrl = `https://api.dicebear.com/9.x/micah/png?seed=Guest&radius=50`;
     }
 
-    const imgTag = `<img src="${avatarUrl}" alt="User Avatar">`;
-    if(navAvatar) navAvatar.innerHTML = imgTag;
-    if(dropdownAvatar) dropdownAvatar.innerHTML = imgTag;
+    const imgTag = `<img src="${avatarUrl}" alt="User Avatar" style="width:100%; height:100%; object-fit:cover; border: 2px solid #fff;">`;
+    
+    if(navAvatar) {
+        navAvatar.innerHTML = imgTag;
+        navAvatar.style.padding = "0"; 
+        navAvatar.style.overflow = "hidden";
+        navAvatar.style.borderRadius = "50%"; 
+    }
+    
+    if(dropdownAvatar) {
+        dropdownAvatar.innerHTML = imgTag;
+        dropdownAvatar.style.padding = "0"; 
+        dropdownAvatar.style.overflow = "hidden";
+        dropdownAvatar.style.borderRadius = "50%";
+    }
 
     if(userNameDisplay) userNameDisplay.innerText = name;
     if(userEmailDisplay) userEmailDisplay.innerText = email ? email : "member@techzone.id";
@@ -101,15 +108,18 @@ if (loginForm) {
         const gender = genderInput.value;
 
         if (name.length > 0 && gender) {
-            
+        
             saveLoginSession(name, gender, `${name.toLowerCase().replace(/\s/g, '')}@gmail.com`);
             
-         
             const btn = loginForm.querySelector('.btn-login');
-            btn.innerText = "Memproses...";
+            btn.innerText = "Berhasil Masuk!";
+            
             setTimeout(() => {
-                location.reload(); 
+                hideLoginOverlay();      
+                updateProfileUI(name, gender, `${name.toLowerCase().replace(/\s/g, '')}@gmail.com`); // Update avatar
+                btn.innerText = "MASUK SEKARANG"; 
             }, 800);
+            
         } else {
             alert("Harap lengkapi data!");
         }
@@ -119,24 +129,22 @@ if (loginForm) {
 
 window.loginWithGoogle = function() {
     const btnGoogle = document.querySelector('.btn-google');
-    const originalContent = btnGoogle.innerHTML;
-    btnGoogle.innerHTML = "Menghubungkan ke Google...";
+    btnGoogle.innerHTML = "Menghubungkan...";
     
     setTimeout(() => {
-        
-        const fakeGoogleName = "Sultan Gadget"; 
-        const fakeGoogleEmail = "sultan.gadget@gmail.com";
-        const fakeGender = "google"; 
+        const fakeName = "Sultan Gadget"; 
+        const fakeGender = "male"; 
+        const fakeEmail = "sultan@google.com";
 
-
-        saveLoginSession(fakeGoogleName, fakeGender, fakeGoogleEmail);
+        saveLoginSession(fakeName, fakeGender, fakeEmail);
   
+        hideLoginOverlay();
+        updateProfileUI(fakeName, fakeGender, fakeEmail);
         showToast("Login Google Berhasil!");
-        setTimeout(() => {
-            location.reload();
-        }, 500);
+        
+        btnGoogle.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"> Masuk dengan Google`;
 
-    }, 1500); 
+    }, 1000); 
 }
 
 
@@ -168,33 +176,41 @@ window.openProfileModal = function() {
     const nameInput = document.getElementById('edit-name');
     const emailInput = document.getElementById('edit-email');
     const avatarContainer = document.getElementById('profile-modal-avatar');
+    
     const currentName = sessionStorage.getItem('techzone_user') || 'Guest';
     const currentEmail = sessionStorage.getItem('techzone_email') || 'user@techzone.id';
     const currentGender = sessionStorage.getItem('techzone_gender');
 
-    
     nameInput.value = currentName;
     emailInput.value = currentEmail;
 
     
     let avatarUrl = '';
-    if (currentGender === 'male') {
-        avatarUrl = `https://avatar.iran.liara.run/public/boy?username=${currentName}`;
-    } else if (currentGender === 'female') {
-        avatarUrl = `https://avatar.iran.liara.run/public/girl?username=${currentName}`;
-    } else {
-        avatarUrl = `https://avatar.iran.liara.run/public?username=${currentName}`;
-    }
-    avatarContainer.innerHTML = `<img src="${avatarUrl}" alt="Profile">`;
 
+    if (currentGender === 'male' || currentGender === 'google') {
+         avatarUrl = `https://api.dicebear.com/9.x/micah/png?seed=Felix&backgroundColor=b6e3f4&radius=50`; 
+    } else if (currentGender === 'female') {
+        avatarUrl = `https://api.dicebear.com/9.x/micah/png?seed=Jessica&backgroundColor=ffdfbf&radius=50`;
+    } else {
+        avatarUrl = `https://api.dicebear.com/9.x/micah/png?seed=Guest&radius=50`;
+    }
     
+
+    avatarContainer.innerHTML = `<img src="${avatarUrl}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
+    
+    avatarContainer.style.width = "100px";
+    avatarContainer.style.height = "100px";
+    avatarContainer.style.overflow = "hidden";
+    avatarContainer.style.borderRadius = "50%";
+    avatarContainer.style.border = "4px solid #f0f0f0";
+    avatarContainer.style.padding = "0";
+    avatarContainer.style.margin = "0 auto 15px auto"; 
+
     const userDropdown = document.getElementById('user-dropdown');
     if(userDropdown) userDropdown.classList.remove('active');
     
- 
     modal.style.display = 'flex';
 }
-
 
 const editProfileForm = document.getElementById('edit-profile-form');
 if (editProfileForm) {
@@ -801,7 +817,7 @@ window.finishOrder = function() {
 
 
 // =========================================
-//          LOGIKA FILTER KATEGORI
+//           LOGIKA FILTER KATEGORI 
 // =========================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -811,31 +827,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const backBtn = document.getElementById('back-to-home');
 
     function runFilter(categoryValue) {
- 
+    
         filterButtons.forEach(b => {
             b.classList.remove('active');
-          
             if(b.getAttribute('data-filter') === categoryValue) {
                 b.classList.add('active');
             }
         });
 
+
         productItems.forEach(item => {
+          
             const itemCategory = item.getAttribute('data-category');
-            
-            if (categoryValue === 'all' || itemCategory === categoryValue) {
+            const cleanCategory = itemCategory ? itemCategory.trim() : '';
+
+            if (categoryValue === 'all' || cleanCategory === categoryValue) {
+               
                 item.style.display = 'block';
                 item.style.animation = 'none';
                 item.offsetHeight; 
                 item.style.animation = 'fadeUp 0.5s ease forwards';
             } else {
-                item.style.display = 'none';
+                
+                item.style.cssText = 'display: none !important;'; 
+              
             }
         });
     }
 
     filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault(); 
             const categoryValue = btn.getAttribute('data-filter');
             runFilter(categoryValue);
         });
@@ -845,13 +867,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterParam = urlParams.get('filter');
 
     if (filterParam) {
-     
-        runFilter(filterParam);
-    } else {
-        
+      
+        setTimeout(() => runFilter(filterParam), 100);
     }
 
-  
     if(backBtn) {
         backBtn.addEventListener('click', (e) => {
             e.preventDefault();
