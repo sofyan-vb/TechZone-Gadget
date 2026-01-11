@@ -20,7 +20,6 @@
     visibility: visible;
 }
 
-
 .login-box {
     background: var(--dark-bg);
     padding: 3rem;
@@ -40,7 +39,16 @@
     margin-bottom: 1rem;
     font-style: italic;
 }
+
 .login-logo span { color: var(--primary); }
+
+#username-input,
+#gender-input {
+    
+    padding-left: 10px !important; 
+    box-sizing: border-box; 
+}
+
 
 .input-group-login {
     display: flex;

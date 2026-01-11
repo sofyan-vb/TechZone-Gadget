@@ -46,12 +46,39 @@ const userEmailDisplay = document.getElementById('user-email-display');
 
 
 function checkLoginStatus() {
+    const navEntry = performance.getEntriesByType("navigation")[0];
+    const isRefresh = (navEntry && navEntry.type === 'reload');
 
-    sessionStorage.removeItem('techzone_user');
-    sessionStorage.removeItem('techzone_gender');
-    sessionStorage.removeItem('techzone_email');
+    if (isRefresh) {
+        console.log("Terdeteksi Refresh: Menghapus sesi login...");
+        sessionStorage.removeItem('techzone_user');
+        sessionStorage.removeItem('techzone_gender');
+        sessionStorage.removeItem('techzone_email');
+    }
 
-    showLoginOverlay();
+    const savedUser = sessionStorage.getItem('techzone_user');
+    const savedGender = sessionStorage.getItem('techzone_gender');
+    const savedEmail = sessionStorage.getItem('techzone_email');
+
+    if (savedUser && savedUser !== 'null' && savedUser !== '') {
+        
+        console.log("Sesi aktif ditemukan, login otomatis.");
+        updateProfileUI(savedUser, savedGender, savedEmail);
+        
+        const overlay = document.getElementById('login-overlay');
+        if (overlay) overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+
+    } else {
+       
+        console.log("Sesi kosong, memunculkan login...");
+        
+        if (typeof updateProfileUI === "function") {
+             updateProfileUI("Guest", "", ""); 
+        }
+
+        showLoginOverlay();
+    }
 }
 
 
